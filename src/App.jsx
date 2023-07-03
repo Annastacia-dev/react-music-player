@@ -1,16 +1,21 @@
 import { Routes, Route } from 'react-router-dom';
+import Navbar from './components/Navbar';
 import SpotifyLoginButton from './components/SpotifyLoginButton';
 import SpotifyCallback from './components/SpotifyCallback';
 import SpotifyAPI from './components/SpotifyAPI';
 
 const App = () => {
+
+  const accessToken = localStorage.getItem('spotifyAccessToken');
+
   return (
     <div>
-      <h1>Spotify App</h1>
+      <Navbar />
       <Routes>
-        <Route path="/" element={<SpotifyLoginButton />} />
+        <Route path="/" element={
+          accessToken ?   <SpotifyAPI /> : <SpotifyLoginButton />
+        } />
         <Route path="/callback" element={<SpotifyCallback />} />
-        <Route path="/home" element={<SpotifyAPI />} />
       </Routes>
     </div>
   );
